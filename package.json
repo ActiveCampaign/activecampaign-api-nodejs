@@ -1,0 +1,28 @@
+{
+  "name": "activecampaign",
+  "description": "Node.js wrapper for the ActiveCampaign API",
+  "author": "ActiveCampaign <help@activecampaign.com>",
+  "version": "0.0.1",
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/ActiveCampaign/activecampaign-api-nodejs.git"
+  },
+  "keywords": [
+    "activecampaign",
+    "email",
+    "marketing"
+  ],
+  "bugs": {
+    "url": "https://github.com/ActiveCampaign/activecampaign-api-nodejs/issues"
+  },
+  "dependencies": {
+    "request": "2.9.x"
+  },
+  "devDependencies": {
+    "express": ">=2.5.1"
+  },
+  "engines": {
+    "node": ">=0.6.9"
+  },
+  "main": "./lib/ActiveCampaign.js"
+}
