@@ -12,6 +12,10 @@ If you don't use NPM, try this:
 
 `git clone git://github.com/ActiveCampaign/activecampaign-api-nodejs.git activecampaign`
 
+## Requirements
+
+1. Valid ActiveCampaign hosted account.
+
 ## Example Usage
 
 <pre>
@@ -44,3 +48,11 @@ var list_add = ac.api("list/add", list, function(response) {
 	console.log(response);
 });
 </pre>
+
+## Full Documentation
+
+[View our full API documentation](http://activecampaign.com/api).
+
+## Reporting Issues
+
+We'd love to help if you have questions or problems. Report issues using the [Github Issue Tracker](https://github.com/ActiveCampaign/activecampaign-api-nodejs/issues) or email [help@activecampaign.com](mailto:help@activecampaign.com).
