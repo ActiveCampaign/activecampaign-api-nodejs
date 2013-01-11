@@ -27,6 +27,18 @@ var ac = new ActiveCampaign(ACTIVECAMPAIGN_URL, ACTIVECAMPAIGN_API_KEY);
 
 var account = ac.api("account/view", {}, function(response) {
 	console.log(response);
+	
+  if (response.success) {
+
+    // successful request
+
+  }
+  else {
+
+    // request error
+    console.log(response.error);
+
+  }
 });
 
 var subscriber_exists = ac.api("subscriber/view?email=test@example.com", {}, function(response) {
