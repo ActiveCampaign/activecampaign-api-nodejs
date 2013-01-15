@@ -2,7 +2,7 @@
   "name": "activecampaign",
   "description": "Node.js wrapper for the ActiveCampaign API",
   "author": "ActiveCampaign <help@activecampaign.com>",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository" : {
     "type" : "git",
     "url" : "https://github.com/ActiveCampaign/activecampaign-api-nodejs.git"
@@ -24,5 +24,5 @@
   "engines": {
     "node": ">=0.6.9"
   },
-  "main": "./lib/ActiveCampaign.js"
+  "main": "./lib/ActiveCampaign"
 }
