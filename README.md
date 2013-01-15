@@ -23,6 +23,11 @@ var ActiveCampaign = require("activecampaign");
 
 var ac = new ActiveCampaign(ACTIVECAMPAIGN_URL, ACTIVECAMPAIGN_API_KEY);
 
+// TEST API credentials
+var test = ac.credentials_test(function(response) {
+  console.log(response);
+});
+
 // GET requests
 
 var account = ac.api("account/view", {}, function(response) {
