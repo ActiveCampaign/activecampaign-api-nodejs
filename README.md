@@ -46,7 +46,7 @@ var account = ac.api("account/view", {}, function(response) {
   }
 });
 
-var subscriber_exists = ac.api("subscriber/view?email=test@example.com", {}, function(response) {
+var contact_exists = ac.api("contact/view?email=test@example.com", {}, function(response) {
 	console.log(response);
 });
 
