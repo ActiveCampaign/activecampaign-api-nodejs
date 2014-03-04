@@ -1,4 +1,4 @@
-# activecampaign-api-nodejs
+# Official ActiveCampaign Node.js API wrapper
 
 Node.js wrapper for the ActiveCampaign API.
 
@@ -6,11 +6,11 @@ Node.js wrapper for the ActiveCampaign API.
 
 Install using NPM:
 
-`npm install activecampaign`
+	npm install activecampaign
 
 If you don't use NPM, try this:
 
-`git clone git://github.com/ActiveCampaign/activecampaign-api-nodejs.git activecampaign`
+	git clone git://github.com/ActiveCampaign/activecampaign-api-nodejs.git activecampaign
 
 ## Requirements
 
@@ -18,53 +18,51 @@ If you don't use NPM, try this:
 
 ## Example Usage
 
-<pre>
-var ActiveCampaign = require("activecampaign");
+	var ActiveCampaign = require("activecampaign");
 
-var ac = new ActiveCampaign(ACTIVECAMPAIGN_URL, ACTIVECAMPAIGN_API_KEY);
+	var ac = new ActiveCampaign(ACTIVECAMPAIGN_URL, ACTIVECAMPAIGN_API_KEY);
 
-// TEST API credentials
-var test = ac.credentials_test(function(response) {
-  console.log(response);
-});
+	// TEST API credentials
+	var test = ac.credentials_test(function(response) {
+		console.log(response);
+	});
 
-// GET requests
+	// GET requests
 
-var account = ac.api("account/view", {}, function(response) {
-	console.log(response);
+	var account = ac.api("account/view", {}, function(response) {
+		console.log(response);
 	
-  if (response.success) {
+		if (response.success) {
 
-    // successful request
+			// successful request
 
-  }
-  else {
+		}
+		else {
 
-    // request error
-    console.log(response.error);
+			// request error
+			console.log(response.error);
 
-  }
-});
+		}
+	});
 
-var contact_exists = ac.api("contact/view?email=test@example.com", {}, function(response) {
-	console.log(response);
-});
+	var contact_exists = ac.api("contact/view?email=test@example.com", {}, function(response) {
+		console.log(response);
+	});
 
-// POST request
+	// POST request
 
-var list = {
-	name: "List 3",
-	sender_name: "My Company",
-	sender_addr1: "123 S. Street",
-	sender_city: "Chicago",
-	sender_zip: "60601",
-	sender_country: "USA"
-};
+	var list = {
+		name: "List 3",
+		sender_name: "My Company",
+		sender_addr1: "123 S. Street",
+		sender_city: "Chicago",
+		sender_zip: "60601",
+		sender_country: "USA"
+	};
 
-var list_add = ac.api("list/add", list, function(response) {
-	console.log(response);
-});
-</pre>
+	var list_add = ac.api("list/add", list, function(response) {
+		console.log(response);
+	});
 
 ## Full Documentation
 
