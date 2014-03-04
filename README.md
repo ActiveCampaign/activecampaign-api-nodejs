@@ -20,7 +20,7 @@ If you don't use NPM, try this:
 
 	var ActiveCampaign = require("activecampaign");
 
-	var ac = new ActiveCampaign(ACTIVECAMPAIGN_URL, ACTIVECAMPAIGN_API_KEY);
+	var ac = new ActiveCampaign("http://ACCOUNT.api-us1.com", "iy837huygda7dsgy");
 
 	// TEST API credentials
 	var test = ac.credentials_test(function(response) {
