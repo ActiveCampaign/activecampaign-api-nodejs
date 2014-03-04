@@ -1,6 +1,6 @@
-# Official ActiveCampaign Node.js API wrapper
+# ActiveCampaign Node.js API wrapper
 
-Node.js wrapper for the ActiveCampaign API.
+Official Node.js wrapper for the ActiveCampaign API.
 
 ## Installation
 
