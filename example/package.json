@@ -1,0 +1,13 @@
+{
+  "name": "example",
+  "description": "Testing using the Node.js wrapper for the ActiveCampaign API",
+  "author": "Matt Thommes <matt@activecampaign.com>",
+  "version": "0.0.1",
+  "dependencies": {
+    "activecampaign": "0.0.7"
+  },
+  "engines": {
+    "node": ">=0.6.9"
+  },
+  "main": "./lib/ActiveCampaign"
+}
