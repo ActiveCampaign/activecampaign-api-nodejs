@@ -20,33 +20,36 @@ If you don't use NPM, try this:
 
 	var ActiveCampaign = require("activecampaign");
 
-	var ac = new ActiveCampaign("http://ACCOUNT.api-us1.com", "iy837huygda7dsgy");
+	var ac = new ActiveCampaign("https://ACCOUNT.api-us1.com", {{KEY}});
 
 	// TEST API credentials
-	var test = ac.credentials_test(function(response) {
-		console.log(response);
+	ac.credentials_test().then(function(result) {
+		// successful request
+		if (result.success) {
+			// VALID ACCOUNT
+		} else {
+			// INVALID ACCOUNT
+		}
+	}, function(result) {
+		// request error
 	});
 
 	// GET requests
 
-	var account = ac.api("account/view", {}, function(response) {
-		console.log(response);
-	
-		if (response.success) {
-
-			// successful request
-
-		}
-		else {
-
-			// request error
-			console.log(response.error);
-
-		}
+	var account_view = ac.api("account/view", {});
+	account_view.then(function(result) {
+		// successful request
+		console.log(result);
+	}, function(result) {
+		// request error
 	});
 
-	var contact_exists = ac.api("contact/view?email=test@example.com", {}, function(response) {
-		console.log(response);
+	var contact_exists = ac.api("contact/view?email=test@example.com", {});
+	contact_exists.then(function(result) {
+		// successful request
+		console.log(result);
+	}, function(result) {
+		// request error
 	});
 
 	// POST request
@@ -60,8 +63,12 @@ If you don't use NPM, try this:
 		sender_country: "USA"
 	};
 
-	var list_add = ac.api("list/add", list, function(response) {
-		console.log(response);
+	var list_add = ac.api("list/add", list);
+	list_add.then(function(result) {
+		// successful request
+		console.log(result);
+	}, function(result) {
+		// request error
 	});
 
 ## Full Documentation
