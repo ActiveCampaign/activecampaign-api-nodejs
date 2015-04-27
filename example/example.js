@@ -1,7 +1,19 @@
 var ActiveCampaign = require("activecampaign");
 
-var ac = new ActiveCampaign("", "");
+var ac = new ActiveCampaign("https://staging-mthommes.api-us1.com", "2840b78569a3fffe247642cd29254f74297f4a08b1e7c3465c7d0559c973333e43458678");
 ac.debug = true;
+
+// TEST API credentials
+ac.credentials_test().then(function(result) {
+	// successful request
+	if (result.success) {
+		// VALID ACCOUNT
+	} else {
+		// INVALID ACCOUNT
+	}
+}, function(result) {
+	// request error
+});
 
 // update general settings.
 var post_test = ac.api("settings/edit", {
