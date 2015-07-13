@@ -49,3 +49,17 @@ tracking_test2.then(function(result) {
 }, function(result) {
 	// request error
 });
+
+// Add a new tracked event.
+var eventdata = {
+	event: "nodejs_test",
+	eventdata: "test1"
+};
+var tracking_test3 = ac.api("tracking/log", eventdata);
+tracking_test3.then(function(result) {
+	// successful request
+	console.log("tracking_test3 result");
+	console.log(result);
+}, function(result) {
+	// request error
+});
