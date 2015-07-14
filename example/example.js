@@ -63,3 +63,12 @@ tracking_test3.then(function(result) {
 }, function(result) {
 	// request error
 });
+
+// RESELLERS ONLY - get the available account plans.
+var account_plans = ac.api("account/plans", {});
+account_plans.then(function(result) {
+	// successful request
+	console.log(result);
+}, function(result) {
+	// request error
+});
