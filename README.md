@@ -18,6 +18,7 @@ If you don't use NPM, try this:
 
 ## Example Usage
 
+```javascript
 	var ActiveCampaign = require("activecampaign");
 
 	var ac = new ActiveCampaign("https://ACCOUNT.api-us1.com", {{KEY}});
@@ -70,6 +71,7 @@ If you don't use NPM, try this:
 	}, function(result) {
 		// request error
 	});
+```
 
 ## Full Documentation
 
