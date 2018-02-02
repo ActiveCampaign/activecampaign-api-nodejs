@@ -20,7 +20,16 @@
     "rsvp": "3.0.x"
   },
   "devDependencies": {
-    "express": ">=2.5.1"
+    "babel-core": "^6.26.0",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-env": "^1.6.1",
+    "colors": "^1.1.2",
+    "eslint": "^4.16.0",
+    "express": ">=2.5.1",
+    "rollup": "^0.55.3",
+    "rollup-plugin-babel": "^3.0.3",
+    "rollup-plugin-eslint": "^4.0.0",
+    "rollup-plugin-node-resolve": "^3.0.2"
   },
   "engines": {
     "node": ">=0.6.9"
