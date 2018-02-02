@@ -34,5 +34,9 @@
   "engines": {
     "node": ">=0.6.9"
   },
-  "main": "./lib/ActiveCampaign"
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "node build/prod.js",
+    "dev": "node build/dev.js"
+  }
 }
