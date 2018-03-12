@@ -19,7 +19,7 @@ If you don't use NPM, you can download the `dist/index.js` file and use that ins
 ```javascript
 	var ActiveCampaign = require("activecampaign"); // see below for browser usage
 
-	var ac = new ActiveCampaign("https://ACCOUNT.api-us1.com", {{KEY}});
+	var ac = ActiveCampaign("https://ACCOUNT.api-us1.com", {{KEY}});
 
 	// TEST API credentials
 	ac.credentials_test().then(function(result) {
