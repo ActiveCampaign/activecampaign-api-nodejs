@@ -2,7 +2,7 @@
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
 	(global.ActiveCampaign = factory());
-}(this, (function () { 'use strict';
+}(this, (function () {
 
 var AC_Account = {
 
@@ -270,9 +270,9 @@ var AC_Contact = {
 	version: 1,
 	url_base: "",
 
-	whitelist: ["add", "delete_list", "delete", "edit", "list", "paginator", "sync", "view", "tag_add", "tag_remove"],
+	whitelist: ["add", "delete_list", "delete", "edit", "list", "paginator", "sync", "view", "tag_add", "tag_remove", "note_add"],
 
-	view: function(Connector, params, post_data) {
+	view: function (Connector, params, post_data) {
 		var action = "contact_view";
 		var regex1 = new RegExp("^email=");
 		var regex2 = new RegExp("^hash=");
