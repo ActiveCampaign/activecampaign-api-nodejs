@@ -6,7 +6,7 @@ watchOptions.output = require('./output.js');
 const watcher = rollup.watch(watchOptions);
 
 watcher.on('event', event => {
-	switch(event.code) {
+	switch (event.code) {
 		case "START":
 			process.stdout.write('\033c');
 			console.log('STARTING...'.black.bgCyan);
