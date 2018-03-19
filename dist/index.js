@@ -7,9 +7,7 @@
 var AC_Account = {
 
 	version: 1,
-	url_base: "",
-
-	whitelist: ["add", "cancel", "edit", "list", "name_check", "plans", "status", "status_set", "view"]
+	url_base: ""
 
 };
 
@@ -17,8 +15,6 @@ var AC_Auth = {
 
 	version: 1,
 	url_base: "",
-
-	whitelist: ["singlesignon"],
 
 	singlesignon: function singlesignon(Connector, params, post_data) {
 		var action = "singlesignon";
@@ -31,18 +27,14 @@ var AC_Auth = {
 var AC_Automation = {
 
 	version: 1,
-	url_base: "",
-
-	whitelist: ["list", "contact_add", "contact_remove", "contact_list", "contact_view"]
+	url_base: ""
 
 };
 
 var AC_Campaign = {
 
-  version: 1,
-  url_base: "",
-
-  whitelist: ["create", "delete_list", "delete", "list", "paginator", "report_bounce_list", "report_bounce_totals", "report_forward_list", "report_forward_totals", "report_link_list", "report_link_totals", "report_open_list", "report_open_totals", "report_totals", "report_unopen_list", "report_unsubscription_list", "report_unsubscription_totals", "send", "status"]
+    version: 1,
+    url_base: ""
 
 };
 
@@ -83,6 +75,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 } : function (obj) {
   return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
 };
+
+/*global toString:true*/
+
+// utils is a library of generic helper functions non-specific to axios
 
 var toString = Object.prototype.toString;
 
@@ -378,6 +374,9 @@ var utils = {
 
 var global$1 = typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {};
 
+// shim for using process in browser
+// based off https://github.com/defunctzombie/node-process/blob/master/browser.js
+
 function defaultSetTimout() {
     throw new Error('setTimeout has not been defined');
 }
@@ -602,6 +601,17 @@ var normalizeHeaderName = function normalizeHeaderName(headers, normalizedName) 
   });
 };
 
+/**
+ * Update an Error with the specified config, error code, and response.
+ *
+ * @param {Error} error The error to update.
+ * @param {Object} config The config.
+ * @param {string} [code] The error code (for example, 'ECONNABORTED').
+ * @param {Object} [request] The request.
+ * @param {Object} [response] The response.
+ * @returns {Error} The error.
+ */
+
 var enhanceError = function enhanceError(error, config, code, request, response) {
   error.config = config;
   if (code) {
@@ -612,11 +622,28 @@ var enhanceError = function enhanceError(error, config, code, request, response)
   return error;
 };
 
+/**
+ * Create an Error with the specified message, config, error code, request and response.
+ *
+ * @param {string} message The error message.
+ * @param {Object} config The config.
+ * @param {string} [code] The error code (for example, 'ECONNABORTED').
+ * @param {Object} [request] The request.
+ * @param {Object} [response] The response.
+ * @returns {Error} The created error.
+ */
 var createError = function createError(message, config, code, request, response) {
   var error = new Error(message);
   return enhanceError(error, config, code, request, response);
 };
 
+/**
+ * Resolve or reject a Promise based on response status.
+ *
+ * @param {Function} resolve A function that resolves the promise.
+ * @param {Function} reject A function that rejects the promise.
+ * @param {object} response The response.
+ */
 var settle = function settle(resolve, reject, response) {
   var validateStatus = response.config.validateStatus;
   // Note: status is not exposed by XDomainRequest
@@ -683,6 +710,8 @@ var buildURL = function buildURL(url, params, paramsSerializer) {
   return url;
 };
 
+// Headers whose duplicates are ignored by node
+// c.f. https://nodejs.org/api/http.html#http_message_headers
 var ignoreDuplicateOf = ['age', 'authorization', 'content-length', 'content-type', 'etag', 'expires', 'from', 'host', 'if-modified-since', 'if-unmodified-since', 'last-modified', 'location', 'max-forwards', 'proxy-authorization', 'referer', 'retry-after', 'user-agent'];
 
 /**
@@ -787,6 +816,8 @@ function nonStandardBrowserEnv() {
     return true;
   };
 }();
+
+// btoa polyfill for IE<10 courtesy https://github.com/davidchambers/Base64.js
 
 var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
 
@@ -1238,6 +1269,14 @@ var isArray$1 = Array.isArray || function (arr) {
   return toString$1.call(arr) == '[object Array]';
 };
 
+/*!
+ * The buffer module from node.js, for the browser.
+ *
+ * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
+ * @license  MIT
+ */
+/* eslint-disable no-proto */
+
 var INSPECT_MAX_BYTES = 50;
 
 /**
@@ -1266,9 +1305,6 @@ var INSPECT_MAX_BYTES = 50;
  */
 Buffer.TYPED_ARRAY_SUPPORT = global$1.TYPED_ARRAY_SUPPORT !== undefined ? global$1.TYPED_ARRAY_SUPPORT : true;
 
-/*
- * Export kMaxLength after typed array support is determined.
- */
 function kMaxLength() {
   return Buffer.TYPED_ARRAY_SUPPORT ? 0x7fffffff : 0x3fffffff;
 }
@@ -3024,6 +3060,26 @@ if (typeof Object.create === 'function') {
 }
 var inherits$2 = inherits$1;
 
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
 var formatRegExp = /%[sdj%]/g;
 function format(f) {
   if (!isString$1(f)) {
@@ -3482,6 +3538,7 @@ function objectToString(o) {
   return Object.prototype.toString.call(o);
 }
 
+// log is just a thin wrapper to console.log that prepends a timestamp
 
 
 /**
@@ -3524,6 +3581,8 @@ EventHandlers.prototype = Object.create(null);
 function EventEmitter() {
   EventEmitter.init.call(this);
 }
+// nodejs oddity
+// require('events') === require('events').EventEmitter
 EventEmitter.EventEmitter = EventEmitter;
 
 EventEmitter.usingDomains = false;
@@ -5798,6 +5857,9 @@ Stream$1.PassThrough = PassThrough$1;
 // Backwards-compat with node 0.4.x
 Stream$1.Stream = Stream$1;
 
+// old-style streams.  Note that the pipe method (the only relevant
+// part of this class) is overridden in the Readable class.
+
 function Stream$1() {
   EventEmitter.call(this);
 }
@@ -6350,7 +6412,6 @@ var initialBias = 72;
 var initialN = 128; // 0x80
 var delimiter = '-'; // '\x2D'
 
-/** Regular expressions */
 var regexNonASCII = /[^\x20-\x7E]/; // unprintable ASCII chars + non-ASCII chars
 var regexSeparators = /[\x2E\u3002\uFF0E\uFF61]/g; // RFC 3490 separators
 
@@ -6462,12 +6523,15 @@ function ucs2decode(string) {
 }
 
 /**
- * Creates a string based on an array of numeric code points.
- * @see `punycode.ucs2.decode`
- * @memberOf punycode.ucs2
- * @name encode
- * @param {Array} codePoints The array of numeric code points.
- * @returns {String} The new Unicode string (UCS-2).
+ * Converts a digit/integer into a basic code point.
+ * @see `basicToDigit()`
+ * @private
+ * @param {Number} digit The numeric value of a basic code point.
+ * @returns {Number} The basic code point whose value (when used for
+ * representing integers) is `digit`, which needs to be in the range
+ * `0` to `base - 1`. If `flag` is non-zero, the uppercase form is
+ * used; else, the lowercase form is used. The behavior is undefined
+ * if `flag` is non-zero and `digit` has no uppercase form.
  */
 function digitToBasic(digit, flag) {
   //  0..25 map to ASCII a..z or A..Z
@@ -7491,6 +7555,35 @@ var url$1 = Object.freeze({
 	Url: Url
 });
 
+/*
+this and http-lib folder
+
+The MIT License
+
+Copyright (c) 2015 John Hiesey
+
+Permission is hereby granted, free of charge,
+to any person obtaining a copy of this software and
+associated documentation files (the "Software"), to
+deal in the Software without restriction, including
+without limitation the rights to use, copy, modify,
+merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom
+the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice
+shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR
+ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+*/
 function request(opts, cb) {
   if (typeof opts === 'string') opts = urlParse(opts);
 
@@ -7704,6 +7797,11 @@ function isView(arrbuf) {
 function assert(value, message) {
   if (!value) fail(value, true, message, '==', ok);
 }
+// 2. The AssertionError is defined in assert.
+// new assert.AssertionError({ message: message,
+//                             actual: actual,
+//                             expected: expected })
+
 var regex = /\s*function\s+([^\(\s]*)\s*/;
 // based on https://github.com/ljharb/function.prototype.name/blob/adeeeec8bfcc6068b187d7d9fb3d5bb1d3a30899/implementation.js
 function getName(func) {
@@ -7811,6 +7909,9 @@ function ok(value, message) {
   if (!value) fail(value, true, message, '==', ok);
 }
 assert.ok = ok;
+// 5. The equality assertion tests shallow, coercive equality with
+// ==.
+// assert.equal(actual, expected, message_opt);
 assert.equal = equal;
 function equal(actual, expected, message) {
   if (actual != expected) fail(actual, expected, message, '==', equal);
@@ -8967,6 +9068,12 @@ var Buf32 = Int32Array;
 // Enable/Disable typed arrays use, for testing
 //
 
+/* Public constants ==========================================================*/
+/* ===========================================================================*/
+
+//var Z_FILTERED          = 1;
+//var Z_HUFFMAN_ONLY      = 2;
+//var Z_RLE               = 3;
 var Z_FIXED = 4;
 //var Z_DEFAULT_STRATEGY  = 0;
 
@@ -10192,6 +10299,10 @@ function crc32(crc, buf, len, pos) {
   return crc ^ -1; // >>> 0;
 }
 
+/* Public constants ==========================================================*/
+/* ===========================================================================*/
+
+/* Allowed flush values; see deflate() and inflate() below for details */
 var Z_NO_FLUSH = 0;
 var Z_PARTIAL_FLUSH = 1;
 //var Z_SYNC_FLUSH    = 2;
@@ -10225,6 +10336,10 @@ var Z_FILTERED = 1;
 var Z_HUFFMAN_ONLY = 2;
 var Z_RLE = 3;
 var Z_FIXED$1 = 4;
+/* Possible values of the data_type field (though see inflate()) */
+//var Z_BINARY              = 0;
+//var Z_TEXT                = 1;
+//var Z_ASCII               = 1; // = Z_TEXT
 var Z_UNKNOWN$1 = 2;
 
 /* The deflate compression method */
@@ -10233,7 +10348,6 @@ var Z_DEFLATED = 8;
 /*============================================================================*/
 
 var MAX_MEM_LEVEL = 9;
-/* Maximum value for memLevel in deflateInit2 */
 var LENGTH_CODES$1 = 29;
 /* number of length codes, not counting the special END_BLOCK code */
 var LITERALS$1 = 256;
@@ -12581,8 +12695,6 @@ var SYNC = 32; /* looking for synchronization bytes to restart inflate() */
 
 var ENOUGH_LENS$1 = 852;
 var ENOUGH_DISTS$1 = 592;
-//var ENOUGH =  (ENOUGH_LENS+ENOUGH_DISTS);
-
 function zswap32(q) {
   return (q >>> 24 & 0xff) + (q >>> 8 & 0xff00) + ((q & 0xff00) << 8) + ((q & 0xff) << 24);
 }
@@ -14069,6 +14181,10 @@ exports.inflateSyncPoint = inflateSyncPoint;
 exports.inflateUndermine = inflateUndermine;
 */
 
+// import constants from './constants';
+
+
+// zlib modes
 var NONE = 0;
 var DEFLATE = 1;
 var INFLATE = 2;
@@ -14326,6 +14442,27 @@ var _binding = Object.freeze({
 	Z_DEFLATED: Z_DEFLATED$2,
 	Zlib: Zlib
 });
+
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 function assert$4(a, msg) {
   if (!a) {
@@ -15381,6 +15518,14 @@ InterceptorManager.prototype.forEach = function forEach(fn) {
 
 var InterceptorManager_1 = InterceptorManager;
 
+/**
+ * Transform the data for a request or a response
+ *
+ * @param {Object|String} data The data to be transformed
+ * @param {Array} headers The headers for the request or response
+ * @param {Array|Function} fns A single function or Array of functions
+ * @returns {*} The resulting transformed data
+ */
 var transformData = function transformData(data, headers, fns) {
   /*eslint no-param-reassign:0*/
   utils.forEach(fns, function transform(fn) {
@@ -15394,6 +15539,13 @@ var isCancel = function isCancel(value) {
   return !!(value && value.__CANCEL__);
 };
 
+/**
+ * Determines whether the specified URL is absolute
+ *
+ * @param {string} url The URL to test
+ * @returns {boolean} True if the specified URL is absolute, otherwise false
+ */
+
 var isAbsoluteURL = function isAbsoluteURL(url) {
   // A URL is considered absolute if it begins with "<scheme>://" or "//" (protocol-relative URL).
   // RFC 3986 defines scheme name as a sequence of characters beginning with a letter and followed
@@ -15402,10 +15554,21 @@ var isAbsoluteURL = function isAbsoluteURL(url) {
   );
 };
 
+/**
+ * Creates a new URL by combining the specified URLs
+ *
+ * @param {string} baseURL The base URL
+ * @param {string} relativeURL The relative URL
+ * @returns {string} The combined URL
+ */
+
 var combineURLs = function combineURLs(baseURL, relativeURL) {
   return relativeURL ? baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '') : baseURL;
 };
 
+/**
+ * Throws a `Cancel` if cancellation has been requested.
+ */
 function throwIfCancellationRequested(config) {
   if (config.cancelToken) {
     config.cancelToken.throwIfRequested();
@@ -15462,6 +15625,11 @@ var dispatchRequest = function dispatchRequest(config) {
   });
 };
 
+/**
+ * Create a new instance of Axios
+ *
+ * @param {Object} instanceConfig The default config for the instance
+ */
 function Axios(instanceConfig) {
   this.defaults = instanceConfig;
   this.interceptors = {
@@ -15530,6 +15698,13 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 var Axios_1 = Axios;
 
+/**
+ * A `Cancel` is an object that is thrown when an operation is canceled.
+ *
+ * @class
+ * @param {string=} message The message.
+ */
+
 function Cancel(message) {
   this.message = message;
 }
@@ -15542,6 +15717,12 @@ Cancel.prototype.__CANCEL__ = true;
 
 var Cancel_1 = Cancel;
 
+/**
+ * A `CancelToken` is an object that can be used to request cancellation of an operation.
+ *
+ * @class
+ * @param {Function} executor The executor function.
+ */
 function CancelToken(executor) {
   if (typeof executor !== 'function') {
     throw new TypeError('executor must be a function.');
@@ -15590,12 +15771,39 @@ CancelToken.source = function source() {
 
 var CancelToken_1 = CancelToken;
 
+/**
+ * Syntactic sugar for invoking a function and expanding an array for arguments.
+ *
+ * Common use case would be to use `Function.prototype.apply`.
+ *
+ *  ```js
+ *  function f(x, y, z) {}
+ *  var args = [1, 2, 3];
+ *  f.apply(null, args);
+ *  ```
+ *
+ * With `spread` this example can be re-written.
+ *
+ *  ```js
+ *  spread(function(x, y, z) {})([1, 2, 3]);
+ *  ```
+ *
+ * @param {Function} callback
+ * @returns {Function}
+ */
+
 var spread = function spread(callback) {
   return function wrap(arr) {
     return callback.apply(null, arr);
   };
 };
 
+/**
+ * Create an instance of Axios
+ *
+ * @param {Object} defaultConfig The default config for the instance
+ * @return {Axios} A new instance of Axios
+ */
 function createInstance(defaultConfig) {
   var context = new Axios_1(defaultConfig);
   var instance = bind(Axios_1.prototype.request, context);
@@ -15819,8 +16027,6 @@ var AC_Contact = {
 	version: 1,
 	url_base: "",
 
-	whitelist: ["add", "delete_list", "delete", "edit", "list", "paginator", "sync", "view", "tag_add", "tag_remove", "note_add"],
-
 	view: function view(Connector, params, post_data) {
 		var action = "contact_view";
 		var regex1 = new RegExp("^email=");
@@ -15839,64 +16045,45 @@ var AC_Contact = {
 var AC_Deal = {
 
 	version: 1,
-	url_base: "",
-
-	whitelist: ["add", "edit", "delete", "get", "list", "note_add", "note_edit", "pipeline_add", "pipeline_edit", "pipeline_delete", "pipeline_list", "stage_add", "stage_edit", "stage_delete", "stage_list", "task_add", "task_edit", "tasktype_add", "tasktype_edit", "tasktype_delete"]
+	url_base: ""
 
 };
 
 var AC_Design = {
 
 	version: 1,
-	url_base: "",
-
-	whitelist: ["edit", "view"]
-
+	url_base: ""
 };
 
 var AC_Form = {
 
 	version: 1,
-	url_base: "",
-
-	whitelist: ["getforms"]
-
+	url_base: ""
 };
 
 var AC_Graph = {
 
 	version: 1,
-	url_base: "",
-
-	whitelist: ["interaction_rate"]
+	url_base: ""
 
 };
 
 var AC_Group = {
 
 	version: 1,
-	url_base: "",
-
-	whitelist: ["add", "delete_list", "delete", "edit", "list", "view"]
-
+	url_base: ""
 };
 
 var AC_List = {
 
 	version: 1,
-	url_base: "",
-
-	whitelist: ["add", "delete_list", "delete", "edit", "field_add", "field_delete", "field_edit", "field_view", "list", "paginator", "view"]
-
+	url_base: ""
 };
 
 var AC_Message = {
 
   version: 1,
-  url_base: "",
-
-  whitelist: ["add", "delete_list", "delete", "edit", "list", "template_add", "template_delete_list", "template_delete", "template_edit", "template_export", "template_import", "template_list", "template_view", "view"]
-
+  url_base: ""
 };
 
 /**
@@ -15938,8 +16125,6 @@ var AC_Segment = {
 	version: 1,
 	url_base: "",
 
-	whitelist: ["list"],
-
 	list: function list(Connector, params, post_data) {
 		// version 2 only.
 		Connector.url = this.url_base + "/segment/list";
@@ -15950,18 +16135,13 @@ var AC_Segment = {
 var AC_Settings = {
 
 	version: 1,
-	url_base: "",
-
-	whitelist: ["edit"]
-
+	url_base: ""
 };
 
 var AC_Tags = {
 
 	version: 1,
-	url_base: "",
-
-	whitelist: ["list"]
+	url_base: ""
 };
 
 var AC_Tracking = {
@@ -15971,8 +16151,6 @@ var AC_Tracking = {
 	track_email: "",
 	track_actid: "",
 	track_key: "",
-
-	whitelist: ["site_status", "event_status", "site_list", "event_list", "whitelist_", "whitelist_remove", "event_remove", "log"],
 
 	site_status: function site_status(Connector, params, post_data) {
 		// version 2 only.
@@ -16033,8 +16211,6 @@ var AC_User = {
 	version: 1,
 	url_base: "",
 
-	whitelist: ["add", "delete_list", "delete", "edit", "list", "me", "view"],
-
 	view: function view(Connector, params, post_data) {
 		var action = "user_view";
 		var regex1 = new RegExp("^email=");
@@ -16053,9 +16229,7 @@ var AC_User = {
 var AC_Webhook = {
 
 	version: 1,
-	url_base: "",
-
-	whitelist: ["add", "delete_list", "delete", "edit", "list", "view", "events"]
+	url_base: ""
 
 };
 
@@ -16169,11 +16343,6 @@ var ActiveCampaign = function ActiveCampaign(url, api_key, api_user, api_pass) {
 
 			// so we can use it later
 			Connector.action = components[0] + "_" + components[1];
-
-			// check against whitelist
-			if (AC_Object.whitelist.indexOf(method) == -1) {
-				throw new Error("Invalid API method.");
-			}
 
 			AC_Object.url_base = this.url_base;
 			Connector.version = AC_Object.version = this.version_number;
