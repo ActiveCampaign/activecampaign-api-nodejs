@@ -1,4 +1,4 @@
-var colors = require('colors');
+require('colors');
 const rollup = require('rollup');
 const watchOptions = require('./input.js');
 watchOptions.output = require('./output.js');
