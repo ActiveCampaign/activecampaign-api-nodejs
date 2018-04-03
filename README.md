@@ -1,6 +1,6 @@
-# ActiveCampaign Node.js API wrapper
+# ActiveCampaign JavaScript API wrapper
 
-Official Node.js wrapper for the ActiveCampaign API.
+Official Javascript wrapper for the ActiveCampaign API.
 
 ## Installation
 
@@ -8,9 +8,7 @@ Install using NPM:
 
 	npm install activecampaign
 
-If you don't use NPM, try this:
-
-	git clone git://github.com/ActiveCampaign/activecampaign-api-nodejs.git activecampaign
+If you don't use NPM, you can download the `dist/index.js` file and use that instead.
 
 ## Requirements
 
@@ -19,9 +17,9 @@ If you don't use NPM, try this:
 ## Example Usage
 
 ```javascript
-	var ActiveCampaign = require("activecampaign");
+	var ActiveCampaign = require("activecampaign"); // see below for browser usage
 
-	var ac = new ActiveCampaign("https://ACCOUNT.api-us1.com", {{KEY}});
+	var ac = ActiveCampaign("https://ACCOUNT.api-us1.com", {{KEY}});
 
 	// TEST API credentials
 	ac.credentials_test().then(function(result) {
@@ -72,6 +70,14 @@ If you don't use NPM, try this:
 		// request error
 	});
 ```
+
+ Using this in the browser without a buildpack? You can simple include the main javascript file like so:
+
+ ```
+ <script src="path/to/dist/index.js"></script>
+ ```
+
+ And then the `ActiveCampaign` object will be available globally.
 
 ## Full Documentation
 
